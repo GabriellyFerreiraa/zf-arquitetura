@@ -101,10 +101,13 @@ h3{font-size:clamp(20px,2.4vw,28px)}
 /* ============ HERO (preto cinematográfico) ============ */
 .hero{position:relative;min-height:100svh;background:var(--preto);color:var(--branco);
   display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;padding-bottom:clamp(40px,6vw,72px)}
-.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media{position:absolute;inset:0;z-index:0;overflow:hidden;background:var(--preto)}
 .hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover;opacity:.5}
-.hero-media::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(11,11,12,.5) 0%,rgba(11,11,12,.2) 40%,rgba(11,11,12,.85) 100%)}
+/* embed do YouTube como fundo: cobre a tela mantendo 16:9 e centraliza */
+.hero-media .yt{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:100vw;height:56.25vw;min-height:100%;min-width:177.78vh;border:0;pointer-events:none;opacity:.42}
+.hero-media::after{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(11,11,12,.55) 0%,rgba(11,11,12,.25) 40%,rgba(11,11,12,.9) 100%)}
 .hero-lines{position:absolute;inset:0;z-index:0;opacity:.5;
   background:repeating-linear-gradient(90deg,transparent 0 calc(9vw - 1px),rgba(251,251,249,.05) calc(9vw - 1px) 9vw)}
 .hero-slot-tag{position:absolute;top:96px;right:var(--pad);z-index:2;font-size:10px;letter-spacing:.2em;
@@ -236,6 +239,10 @@ section{padding-block:clamp(80px,11vw,150px)}
 .person h3{font-family:"Fraunces",serif;font-weight:300;font-size:clamp(28px,3.4vw,42px);letter-spacing:-.02em}
 .person .role{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);margin:8px 0 16px;font-weight:600}
 .person p{color:var(--cinza-esc);font-size:15.5px;max-width:46ch}
+.person .insp{margin-top:16px;padding-top:16px;border-top:1px solid var(--linha-clara);
+  font-size:13px;letter-spacing:.02em;color:var(--preto);max-width:none}
+.person .insp span{display:inline-block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cinza);margin-right:10px}
 
 /* ============ CTA final (preto) ============ */
 .cta{background:var(--preto);color:var(--branco);text-align:center;padding-block:clamp(90px,14vw,180px);
@@ -325,10 +332,13 @@ footer p{color:rgba(251,251,249,.65);font-size:14.5px}
   <!-- ======= HERO ======= -->
   <section class="hero">
     <div class="hero-media">
-      <!-- Coloque aqui <video> ou <img> de fundo (ver instruções no topo) -->
+      <!-- Vídeo de apresentação da ZF (YouTube) como fundo. O iframe é injetado via JS.
+           Para trocar o vídeo: mude o ID em data-yt no <div id="ytbg"> abaixo.
+           Para usar um .mp4 próprio no lugar, comente o #ytbg e coloque:
+           <video autoplay muted loop playsinline poster="capa.jpg"><source src="video.mp4" type="video/mp4"></video> -->
+      <div id="ytbg" data-yt="-aYSqjlnUHs"></div>
       <div class="hero-lines"></div>
     </div>
-    <span class="hero-slot-tag">Adicionar vídeo / foto de fundo</span>
 
     <div class="wrap">
       <div class="hero-kicker">
@@ -499,6 +509,7 @@ footer p{color:rgba(251,251,249,.65);font-size:14.5px}
     <div class="sec-head">
       <div class="top"><span class="idx reveal">03</span><span class="eyebrow reveal">Quem assina</span></div>
       <h2 class="display reveal d1">Duas gerações,<br>uma <span class="serif-i">assinatura.</span></h2>
+      <p class="reveal d2" style="color:var(--cinza-esc);max-width:56ch;font-size:clamp(16px,1.6vw,19px)">A leveza herdada de Niemeyer encontra a ousadia contemporânea de Calatrava e Ingels. É dessa soma — experiência e inovação — que nasce o traço ZF.</p>
     </div>
     <div class="grid">
       <article class="person reveal d1">
@@ -508,7 +519,8 @@ footer p{color:rgba(251,251,249,.65);font-size:14.5px}
         </div>
         <h3>Zélia Ferreira</h3>
         <p class="role">Arquiteta &amp; Urbanista · Fundadora</p>
-        <p>Mais de 30 anos de profissão e um traço leve e único, herdado da paixão por Oscar Niemeyer. Do teatro à dança e à moda, transformou o lado artístico em arquitetura.</p>
+        <p>Mais de 30 anos de profissão e um traço leve e único. Do teatro à dança e à moda, transformou o lado artístico em arquitetura. Foi convidada para os 100 anos de Niemeyer, na Casa da Pedra.</p>
+        <p class="insp"><span>Inspiração</span> Oscar Niemeyer · Mies van der Rohe</p>
       </article>
       <article class="person reveal d2">
         <div class="portrait">
@@ -517,7 +529,8 @@ footer p{color:rgba(251,251,249,.65);font-size:14.5px}
         </div>
         <h3>Matheus Ferreira</h3>
         <p class="role">Arquiteto &amp; Urbanista</p>
-        <p>Apaixonado por música e arquitetura, atua no escritório desde 2017. Acredita que inovação e criatividade caminham junto com a funcionalidade.</p>
+        <p>Moderno, ousado e disruptivo, atua no escritório desde 2017. Para ele, a arquitetura não é só apreciada — é vivida a todo tempo. A nova geração que amplia a assinatura ZF.</p>
+        <p class="insp"><span>Inspiração</span> Santiago Calatrava · Niemeyer · Bjarke Ingels</p>
       </article>
     </div>
   </section>
@@ -600,6 +613,24 @@ const animateCount = (el)=>{
 };
 const co = new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){animateCount(e.target);co.unobserve(e.target);}});},{threshold:.6});
 document.querySelectorAll('[data-target]').forEach(el=>co.observe(el));
+
+/* ---- vídeo de fundo do hero (YouTube, mudo, em loop) ---- */
+(function(){
+  const box = document.getElementById('ytbg');
+  if(!box || reduce) return;                 // respeita "reduzir movimento"
+  const id = box.dataset.yt;
+  const start = 8;                           // começa 8s à frente (pula a intro)
+  const src = 'https://www.youtube.com/embed/' + id
+    + '?autoplay=1&mute=1&controls=0&loop=1&playlist=' + id
+    + '&start=' + start + '&playsinline=1&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1';
+  const iframe = document.createElement('iframe');
+  iframe.className = 'yt';
+  iframe.setAttribute('allow','autoplay; encrypted-media');
+  iframe.setAttribute('title','Vídeo de apresentação ZF Arquitetura');
+  iframe.setAttribute('tabindex','-1');
+  iframe.src = src;
+  box.appendChild(iframe);
+})();
 </script>
 </body>
 </html>
